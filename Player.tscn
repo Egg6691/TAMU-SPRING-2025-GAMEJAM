@@ -16,3 +16,8 @@ texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="DashDuration" type="Timer" parent="."]
+wait_time = 0.25
+
+[connection signal="timeout" from="DashDuration" to="." method="_on_DashDuration_timeout"]
