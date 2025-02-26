@@ -3,7 +3,7 @@ extends Character
 
 #EXPORT VARIABLES 
 export var speed = 64 * 3 # tiles per second
-export var bullet_speed = 300
+export var bullet_speed = 300 # MOVE TO GUN NODE
 export var damage = 300
 #MOVEMENT VARIABLES
 var velocity = Vector2.ZERO
@@ -15,10 +15,14 @@ var dashing = false;
 
 #STORED NODES
 onready var dash_timer = get_node("DashDuration");
-
+onready var animations = get_node("Sprite/AnimationPlayer")
 func get_input():
-	velocity = Vector2.ZERO
 	_movement();
+	if(velocity == Vector2.ZERO):
+		if not animations.is_playing() or animations.current_animation != "idle":
+			animations.play("idle");
+	else:
+		pass
 	if Input.is_action_just_pressed("shoot"):
 		_shoot();
 
@@ -34,6 +38,7 @@ func _movement():
 		
 func _shoot():
 	BulletManager.create_bullet(position, get_direction_to_mouse(), bullet_speed, damage, "player");
+	
 func _physics_process(delta):
 	get_input()
 	velocity = move_and_slide(velocity)
