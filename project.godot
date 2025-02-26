@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Character",
 "language": "GDScript",
-"path": "res://Character.gd"
+"path": "res://Scripts/Character.gd"
 } ]
 _global_script_class_icons={
 "Character": ""
@@ -21,12 +21,12 @@ _global_script_class_icons={
 [application]
 
 config/name="TAMU 2025"
-run/main_scene="res://Main.tscn"
+run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-BulletManager="*res://BulletManager.gd"
+BulletManager="*res://Scripts/BulletManager.gd"
 
 [input]
 

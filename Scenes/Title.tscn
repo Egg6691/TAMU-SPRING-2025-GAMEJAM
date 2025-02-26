@@ -1,0 +1,83 @@
+[gd_scene format=2]
+
+[node name="Title" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Horizontal Divider" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="space filler" type="Control" parent="Horizontal Divider"]
+margin_right = 312.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.8
+
+[node name="Vertical Divider" type="VBoxContainer" parent="Horizontal Divider"]
+margin_left = 316.0
+margin_right = 707.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 40
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Horizontal Divider/Vertical Divider"]
+margin_right = 391.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+bbcode_text = "
+
+
+
+[center]TITLE[/center]"
+text = "
+
+
+
+TITLE"
+
+[node name="Control" type="Control" parent="Horizontal Divider/Vertical Divider"]
+margin_top = 128.0
+margin_right = 391.0
+margin_bottom = 216.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="Horizontal Divider/Vertical Divider"]
+margin_top = 256.0
+margin_right = 391.0
+margin_bottom = 344.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "start"
+flat = true
+
+[node name="Button2" type="Button" parent="Horizontal Divider/Vertical Divider"]
+margin_top = 384.0
+margin_right = 391.0
+margin_bottom = 472.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "options"
+flat = true
+
+[node name="Button3" type="Button" parent="Horizontal Divider/Vertical Divider"]
+margin_top = 512.0
+margin_right = 391.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "quit"
+flat = true
+
+[node name="space filler 2" type="Control" parent="Horizontal Divider"]
+margin_left = 711.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.8
