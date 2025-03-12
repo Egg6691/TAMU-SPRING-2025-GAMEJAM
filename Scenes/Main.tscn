@@ -15,7 +15,7 @@ noise = SubResource( 1 )
 script = ExtResource( 2 )
 
 [node name="icon" type="Sprite" parent="."]
-position = Vector2( 58.5, -10.5 )
+position = Vector2( 846, 152 )
 scale = Vector2( 1.63867, 1.16992 )
 texture = SubResource( 2 )
 
@@ -25,3 +25,8 @@ position = Vector2( -13, 3 )
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
 zoom = Vector2( 0.5, 0.5 )
+
+[node name="PlayerTrackerTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="PlayerTrackerTimer" to="." method="_append_position"]

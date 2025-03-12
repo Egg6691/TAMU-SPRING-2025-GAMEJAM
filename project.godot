@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
+"base": "KinematicBody2D",
+"class": "Boss",
+"language": "GDScript",
+"path": "res://Scripts/Boss.gd"
+}, {
+"base": "KinematicBody2D",
 "class": "Character",
 "language": "GDScript",
 "path": "res://Scripts/Character.gd"
 } ]
 _global_script_class_icons={
+"Boss": "",
 "Character": ""
 }
 
