@@ -53,6 +53,7 @@ radius = 7.76282
 height = 17.1923
 
 [node name="Player" type="KinematicBody2D"]
+z_index = 5
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -74,5 +75,9 @@ shape = SubResource( 3 )
 
 [node name="DashDuration" type="Timer" parent="."]
 wait_time = 0.25
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.5, 0.5 )
 
 [connection signal="timeout" from="DashDuration" to="." method="_on_DashDuration_timeout"]

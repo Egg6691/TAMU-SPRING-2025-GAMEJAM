@@ -2,7 +2,7 @@ extends Character
 
 
 #EXPORT VARIABLES 
-export var speed = 64 * 3 # tiles per second
+export var speed = 64 * 5 # tiles per second
 export var bullet_speed = 300 # MOVE TO GUN NODE
 export var damage = 300
 #MOVEMENT VARIABLES
@@ -12,6 +12,10 @@ var direction = Vector2.ZERO
 #STATES
 var facing = Vector2.RIGHT;
 var dashing = false;
+
+#FAST BULLET
+
+
 
 #STORED NODES
 onready var dash_timer = get_node("DashDuration");
@@ -37,7 +41,16 @@ func _movement():
 		velocity = direction.normalized() * speed;
 		
 func _shoot():
-	BulletManager.create_bullet(position, get_direction_to_mouse(), bullet_speed, damage, "player");
+	var fast_homer = {
+	"direction": Vector2.ZERO,
+	"speed": 64 * 7,
+	"damage": damage,
+	"team": "enemy",
+	"type": "homing",
+	"target": Player.position
+	}
+	BulletManager._create_ring(Vector2(position.x+100,position.y+100), fast_homer, 8);
+	#BulletManager._create_bullet(position, get_direction_to_mouse(), bullet_speed, damage, "player", "straight", Vector2.ZERO);
 	
 func _physics_process(delta):
 	get_input()

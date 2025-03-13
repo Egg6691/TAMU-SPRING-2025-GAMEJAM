@@ -5,7 +5,6 @@ extends Node2D
 # var a = 2
 # var b = "text"
 onready var timer = get_node("PlayerTrackerTimer");
-onready var player = get_node("Player")
 var player_pos = [];
 # Called when the node enters the scene tree for the first time.
 func _track_position():
@@ -16,5 +15,5 @@ func _track_position():
 
 
 func _append_position():
-	player_pos.append(player.position);
+	player_pos.append(Player.position);
 	print(player_pos)

@@ -15,6 +15,7 @@ var attack_cooldown = 0.0
 var is_attacking = false
 var is_taking_damage = false
 var speed = 50;
+var attack_patterns = [];
 signal state_changed(new_state)
 
 func _ready():
