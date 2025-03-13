@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Area2D
 
 
 # Declare member variables here. Examples:
@@ -17,6 +17,13 @@ func safe_normalize(vec: Vector2) -> Vector2:
 	if vec.length() > 0.0001:  # Avoid normalizing a zero-length vector
 		return vec.normalized()
 	return Vector2.ZERO
+func get_nearby_boids():
+	var nearby_boids = []
+	for body in get_overlapping_areas():
+		if body.is_in_group("bullet"):
+			nearby_boids.append(body);
+	return nearby_boids;
+			
 func _process(delta):
 	if active:
 		if type == "straight":
@@ -24,15 +31,15 @@ func _process(delta):
 # Main function to move the bullet (with boid behaviors)
 		if type == "homing":
 			# Homing behavior: Direction towards the player (existing code)
-			var angle = lerp_angle(direction.angle(), position.direction_to(Player.position).angle(), lerp(0, .3, 0.1))
+			var angle = lerp_angle(direction.angle(), position.direction_to(Player.position).angle(), lerp(0, .5, 0.1))
 			direction = Vector2(cos(angle), sin(angle))
 			speed = lerp(speed, min_speed, 0.02)
 
 			# Boid behaviors (Separation, Alignment, Cohesion)
-			var separation_strength = 0.15 # How strongly the bullet avoids other entities
+			var separation_strength = .075 # How strongly the bullet avoids other entities
 			var alignment_strength = 0.1  # How much the bullet aligns with others
 			var cohesion_strength = 0.02  # How much the bullet tries to group with others
-			var nearby_boids = BulletManager.reuse_bullets  # Get nearby boids (e.g., bullets or other entities)
+			var nearby_boids = get_nearby_boids();  # Get nearby boids (e.g., bullets or other entities)
 			
 			var separation_force = Vector2.ZERO
 			var alignment_force = Vector2.ZERO
@@ -41,17 +48,15 @@ func _process(delta):
 			# Iterate over nearby boids to calculate forces
 			for boid in nearby_boids:
 				var distance = position.distance_to(boid.position)
-				if distance < 15:  # Only consider nearby boids
-					count += 1
+				count += 1
 					
 					# Separation: Avoid close proximity to other boids (collisions)
-					separation_force += (position - boid.position).normalized() / max(distance, 0.0001);
-					
-					# Alignment: Align with nearby boid's direction
-					alignment_force += boid.direction
-					
-					# Cohesion: Move towards the average position of nearby boids
-					cohesion_force += boid.position
+				separation_force += (position - boid.position).normalized() / max(distance, 0.0001);
+				# Alignment: Align with nearby boid's direction
+				alignment_force += boid.direction
+				
+				# Cohesion: Move towards the average position of nearby boids
+				cohesion_force += boid.position
 			# Apply forces only if there are nearby boids
 			if count > 0:
 				separation_force = safe_normalize(separation_force) * separation_strength
@@ -62,7 +67,8 @@ func _process(delta):
 			direction = safe_normalize(direction)
 
 			# Move the bullet using move_and_slide
-			move_and_slide(direction * speed)
+			position += direction.normalized()*speed*delta
+			#move_and_slide(direction * speed)
 		if type == "swing":
 			pass
 	
@@ -85,6 +91,12 @@ func _process(delta):
 		
 	
 func _ready():
-	min_speed = speed / 3.0;
+	add_to_group("bullet")
+	min_speed = speed / 2.0;
 	add_to_group(team);
+	get_node("Timer").start();
 	
+
+
+func _on_Timer_timeout():
+	queue_free()

@@ -15,5 +15,11 @@ shape = SubResource( 5 )
 texture = ExtResource( 2 )
 
 [node name="AttackTimer" type="Timer" parent="."]
+wait_time = 7.0
+
+[node name="ChainPullDuration" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
+[connection signal="timeout" from="ChainPullDuration" to="." method="_on_ChainPullDuration_timeout"]

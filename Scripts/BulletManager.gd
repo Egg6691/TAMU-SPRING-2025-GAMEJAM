@@ -14,7 +14,6 @@ func _create_bullet(position, properties: Dictionary):
 	new_bullet.team = properties.get("team", "player")
 	new_bullet.type = properties.get("type", "standard")
 	new_bullet.target = properties.get("target", null)
-	
 	get_tree().current_scene.add_child(new_bullet)
 	
 	new_bullet.look_at(position + new_bullet.direction)

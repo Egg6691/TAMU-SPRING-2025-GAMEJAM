@@ -1,27 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Images/call_the_shots_mc.png" type="Texture" id=1]
+[ext_resource path="res://Images/emmy_arm.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=2]
-
-[sub_resource type="AtlasTexture" id=4]
-flags = 4
-atlas = ExtResource( 1 )
-region = Rect2( 37.6106, 28.957, 1325.95, 1871.96 )
+[ext_resource path="res://Images/emmy_pixel_armless.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/arm.gd" type="Script" id=4]
+[ext_resource path="res://Images/gun.png" type="Texture" id=5]
 
 [sub_resource type="Animation" id=5]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
 
 [sub_resource type="Animation" id=2]
 resource_name = "idle"
@@ -57,12 +43,12 @@ z_index = 5
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.1, 0.1 )
-texture = SubResource( 4 )
+position = Vector2( -1, 0.5 )
+texture = ExtResource( 3 )
 hframes = 4
-vframes = 3
+frame = 3
 region_enabled = true
-region_rect = Rect2( 1.65247, 15, 1342.15, 1842.57 )
+region_rect = Rect2( 0, 0, 208.157, 73.5239 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/RESET = SubResource( 5 )
@@ -70,7 +56,28 @@ anims/idle = SubResource( 2 )
 anims/walk_down = SubResource( 6 )
 anims/walk_left = SubResource( 7 )
 
+[node name="Sprite2" type="Sprite" parent="."]
+position = Vector2( -5, -11 )
+z_index = 1
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( -12, -3 )
+script = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="Sprite2"]
+scale = Vector2( 0.03, 0.03 )
+
+[node name="Gun" type="Sprite" parent="Sprite2/Sprite"]
+position = Vector2( -266.668, 1733.33 )
+rotation = 1.91986
+z_index = -1
+texture = ExtResource( 5 )
+centered = false
+offset = Vector2( -1700, -750 )
+flip_h = true
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 3 )
 
 [node name="DashDuration" type="Timer" parent="."]
