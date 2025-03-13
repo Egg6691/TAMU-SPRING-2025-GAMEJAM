@@ -46,6 +46,10 @@ func _attack_bullet():
 			for i in range(16):
 				BulletManager._create_ring(position, bullet, 16, i*25);
 				yield(get_tree().create_timer(0.3), "timeout")
+		3:
+			for i in range(100):
+				BulletManager._create_ring(position, bullet, 1, randi()%360);
+				yield(get_tree().create_timer(0.01), "timeout")
 			
 		
 

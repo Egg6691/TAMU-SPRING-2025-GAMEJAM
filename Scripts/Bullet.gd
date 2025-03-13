@@ -58,9 +58,7 @@ func _process(delta):
 				alignment_force = safe_normalize(alignment_force) * alignment_strength
 				cohesion_force = safe_normalize((cohesion_force / count) - position) * cohesion_strength
 				
-				# Combine all forces
 				direction += separation_force + alignment_force + cohesion_force
-			# Normalize the final direction to avoid any large values
 			direction = safe_normalize(direction)
 
 			# Move the bullet using move_and_slide
