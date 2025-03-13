@@ -2,6 +2,7 @@ class_name Boss extends KinematicBody2D
 
 enum BossState {
 	IDLE,
+	MOVING,
 	ATTACKING,
 	TAKING_DAMAGE,
 	DEAD
@@ -13,7 +14,7 @@ var attack_timer = 2.0
 var attack_cooldown = 0.0
 var is_attacking = false
 var is_taking_damage = false
-
+var speed = 50;
 signal state_changed(new_state)
 
 func _ready():
@@ -34,6 +35,9 @@ func _process(delta):
 func handle_idle(delta):
 	if attack_cooldown == 0:
 		set_state(BossState.ATTACKING)
+
+func handle_moving(delta):
+	position += position.direction_to(Player.position)*speed;
 
 func handle_attacking(delta):
 	perform_attack()
