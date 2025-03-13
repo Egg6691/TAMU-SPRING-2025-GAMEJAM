@@ -22,9 +22,9 @@ func _create_bullet(position, properties: Dictionary):
 	if new_bullet.team == "player":
 		stored_bullets.append(new_bullet)
 		
-func _create_ring(position, properties: Dictionary, number):
+func _create_ring(position, properties: Dictionary, number, offset):
 	for i in range(number):
-		properties["direction"] = Vector2(cos(deg2rad(i * 360.0 / number)), sin(deg2rad(i*360.0/number)))
+		properties["direction"] = Vector2(cos(deg2rad((i * 360.0+offset) / number)), sin(deg2rad((offset+i*360.0)/number)))
 		_create_bullet(position, properties);
 	# add bullets to new var and store thatinstead
 	

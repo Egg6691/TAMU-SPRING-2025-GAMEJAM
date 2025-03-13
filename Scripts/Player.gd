@@ -41,16 +41,15 @@ func _movement():
 		velocity = direction.normalized() * speed;
 		
 func _shoot():
-	var fast_homer = {
-	"direction": Vector2.ZERO,
-	"speed": 64 * 7,
-	"damage": damage,
-	"team": "enemy",
-	"type": "homing",
-	"target": Player.position
+	var bullet = {
+		"direction": get_direction_to_mouse(),
+		"speed": 64 * 5,
+		"damage": damage,
+		"team": "player",
+		"type": "straight",
+		"target": Player.position
 	}
-	BulletManager._create_ring(Vector2(position.x+100,position.y+100), fast_homer, 8);
-	#BulletManager._create_bullet(position, get_direction_to_mouse(), bullet_speed, damage, "player", "straight", Vector2.ZERO);
+	BulletManager._create_bullet(position, bullet);
 	
 func _physics_process(delta):
 	get_input()

@@ -24,7 +24,7 @@ func _process(delta):
 # Main function to move the bullet (with boid behaviors)
 		if type == "homing":
 			# Homing behavior: Direction towards the player (existing code)
-			var angle = lerp_angle(direction.angle(), position.direction_to(Player.position).angle(), lerp(0, .3, 0.5))
+			var angle = lerp_angle(direction.angle(), position.direction_to(Player.position).angle(), lerp(0, .3, 0.1))
 			direction = Vector2(cos(angle), sin(angle))
 			speed = lerp(speed, min_speed, 0.02)
 
