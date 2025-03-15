@@ -21,15 +21,10 @@ var dashing = false;
 #STORED NODES
 onready var dash_timer = get_node("DashDuration");
 onready var animations = get_node("Sprite/AnimationPlayer")
-onready var gun = get_node("Sprite2/Sprite/Gun")
+onready var gun = get_node("Arm/Arm/Gun")
 
 func get_input():
 	_movement();
-	if(velocity == Vector2.ZERO):
-		if not animations.is_playing() or animations.current_animation != "idle":
-			animations.play("idle");
-	else:
-		pass
 	if Input.is_action_just_pressed("shoot"):
 		_shoot();
 
@@ -65,7 +60,20 @@ func _get_direction():
 	if(temp != Vector2.ZERO):
 		facing = temp.normalized();
 	direction = temp.normalized();
+	_update_animation(temp);
 	
+func _update_animation(movement: Vector2):
+	if abs(facing.x) > abs(facing.y):
+		animations.play("idle_right" if facing.x > 0 else "idle_left")
+	else:
+		animations.play("idle_down" if facing.y > 0 else "idle_up")
+
+
+
+
+	animations.play()
+
+	animations.play()
 func get_direction_to_mouse():
 	return (get_global_mouse_position() - global_position).normalized();
 	

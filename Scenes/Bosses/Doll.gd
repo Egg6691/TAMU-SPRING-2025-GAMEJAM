@@ -1,8 +1,19 @@
 extends Boss
+const pull_strength = 80;
+
 var bullet_speed = 200;
 var damage = 5;
 var pulling = false;
-const pull_strength = 200;
+var direction = Vector2.ZERO;
+
+enum attacks {
+	BULLET1,
+	BULLET2,
+	BULLET3,
+	CHAIN,
+	CHOMP
+}
+
 onready var pulltimer = get_node("ChainPullDuration")
 onready var fasthomer = {
 	"direction": Vector2.ZERO,
@@ -21,48 +32,58 @@ onready var bullet = {
 	"target": Player.position
 }
 func _ready():
-	attack_patterns = [];
-	get_node("AttackTimer").start()
+	speed = 200;
+	animations = get_node("Sprite/AnimationPlayer")
 	#_attack_chain()
 	
 func handle_moving(delta):
-	position += position.direction_to(Player.position)*speed;
+	var angle = lerp_angle(direction.angle(), position.direction_to(Player.position).angle(), .02)
+	direction = Vector2(cos(angle), sin(angle))
+	position+=direction.normalized()*speed*delta;
+	if time_in_state > 3.0:
+		set_state(BossState.ATTACKING);
+		print("moved")
+	
 func perform_attack():
-	pass
-	#if far
-		# add far attack
-		# add dash
-		#if phase 2
-			# add more attack
-	# if close
-		# add close attack
-		#if phase 2
-			#add more attack
-	#pick random attack
-	#attack
-	#set attack cooldown 
-func _attack_bullet():
-	var rand = randi() % 3 + 1
-
+	var possible_attacks = []
+	if position.distance_to(Player.position) > 0:
+		possible_attacks.append(attacks.BULLET1)
+		possible_attacks.append(attacks.BULLET2)
+		possible_attacks.append(attacks.BULLET3)
+		possible_attacks.append(attacks.CHAIN);
+	#else:
+		#possible_attacks.append(attacks.CHOMP);
+	var rand = possible_attacks[rand_range(0,possible_attacks.size())];
 	match rand:
+		attacks.BULLET1:
+			_attack_bullet(1)
+		attacks.BULLET2:
+			_attack_bullet(2)
+		attacks.BULLET3:
+			_attack_bullet(3)
+		attacks.CHAIN:
+			_attack_chain()
+	return 3.0;
+func _attack_bullet(num):
+	match num:
 		1:
-			BulletManager._create_ring(position, fasthomer, 8, 0);
+			BulletManager._create_ring(position, fasthomer, 8, 0)
 		2:
 			for i in range(16):
-				BulletManager._create_ring(position, bullet, 16, i*25);
+				BulletManager._create_ring(position, bullet, 16, i * 25)
 				yield(get_tree().create_timer(0.3), "timeout")
 		3:
 			for i in range(100):
-				BulletManager._create_ring(position, bullet, 1, randi()%360);
+				BulletManager._create_ring(position, bullet, 1, randi() % 360)
 				yield(get_tree().create_timer(0.01), "timeout")
+
 				
 
 func _attack_chain():
 	pulling = true;
 	pulltimer.start()
 	yield(pulltimer, "timeout")
-	pulling = false;
-	
+	emit_signal("attack_finished", 3.0)
 	
 func _process(delta):
 	._process(delta)
@@ -70,10 +91,5 @@ func _process(delta):
 		Player.e_velocity += pull_strength*(Player.position.direction_to(position))
 	
 	
-
-func _on_AttackTimer_timeout():
-	_attack_bullet()
-
 func _on_ChainPullDuration_timeout():
-	pass
-	#pulling = false;
+	pulling = false;
