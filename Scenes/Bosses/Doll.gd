@@ -70,7 +70,7 @@ func _attack_bullet(num):
 			BulletManager._create_ring(position, fasthomer, 8, 0)
 		2:
 			for i in range(16):
-				BulletManager._create_ring(position, bullet, 16, i * 25)
+				BulletManager._create_ring(position, bullet, 16, i * 75)
 				yield(get_tree().create_timer(0.3), "timeout")
 		3:
 			for i in range(100):

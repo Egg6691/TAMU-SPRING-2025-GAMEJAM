@@ -294,6 +294,5 @@ wait_time = 0.25
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 0.5, 0.5 )
 
 [connection signal="timeout" from="DashDuration" to="." method="_on_DashDuration_timeout"]
