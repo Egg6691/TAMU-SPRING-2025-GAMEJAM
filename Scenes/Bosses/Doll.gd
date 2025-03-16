@@ -17,11 +17,12 @@ enum attacks {
 onready var pulltimer = get_node("ChainPullDuration")
 onready var fasthomer = {
 	"direction": Vector2.ZERO,
-	"speed": 64 * 10,
+	"speed": 64 * 12,
 	"damage": damage,
 	"team": "enemy",
 	"type": "homing",
-	"target": Player.position
+	"target": Player.position,
+	"sprite": "res://Images/bullet_red_arrow.png"
 }
 onready var bullet = {
 	"direction": Vector2.ZERO,
@@ -29,11 +30,13 @@ onready var bullet = {
 	"damage": damage,
 	"team": "enemy",
 	"type": "straight",
-	"target": Player.position
+	"target": Player.position,
+	"sprite": "res://Images/bullet_orange_small.png"
 }
 func _ready():
 	speed = 200;
 	animations = get_node("Sprite/AnimationPlayer")
+	perform_attack()
 	#_attack_chain()
 	
 func handle_moving(delta):
@@ -42,7 +45,6 @@ func handle_moving(delta):
 	position+=direction.normalized()*speed*delta;
 	if time_in_state > 3.0:
 		set_state(BossState.ATTACKING);
-		print("moved")
 	
 func perform_attack():
 	var possible_attacks = []
@@ -83,7 +85,6 @@ func _attack_chain():
 	pulling = true;
 	pulltimer.start()
 	yield(pulltimer, "timeout")
-	emit_signal("attack_finished", 3.0)
 	
 func _process(delta):
 	._process(delta)

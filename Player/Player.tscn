@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Player/Arm.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Images/emmy_pixel_armless.png" type="Texture" id=3]
@@ -29,6 +29,35 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 1 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "dash"
+length = 0.25
+step = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.02, 0.13, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0, 360.0 ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -273,6 +302,7 @@ region_rect = Rect2( 0, 0, 208.157, 73.5239 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/RESET = SubResource( 10 )
+anims/dash = SubResource( 13 )
 anims/idle_down = SubResource( 8 )
 anims/idle_left = SubResource( 11 )
 anims/idle_right = SubResource( 9 )
@@ -282,7 +312,6 @@ anims/walk_left = SubResource( 7 )
 
 [node name="Arm" parent="." instance=ExtResource( 1 )]
 position = Vector2( -9, -8 )
-scale = Vector2( -1, 1 )
 z_index = -2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

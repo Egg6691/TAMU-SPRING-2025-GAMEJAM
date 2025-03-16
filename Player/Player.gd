@@ -10,7 +10,7 @@ onready var bullet = {
 	"type": "straight",
 	"target": Player.position
 }
-export var speed = 64*3
+export var speed = 64*5
 #MOVEMENT VARIABLES
 var velocity = Vector2.ZERO
 var direction = Vector2.ZERO
@@ -34,6 +34,7 @@ func _movement():
 	elif Input.is_action_just_pressed('dash'):
 		dashing = true;
 		dash_timer.start();
+		animations.play("dash")
 	else:
 		_get_direction()
 		velocity = direction.normalized() * speed;
@@ -67,13 +68,6 @@ func _update_animation(movement: Vector2):
 		animations.play("idle_right" if facing.x > 0 else "idle_left")
 	else:
 		animations.play("idle_down" if facing.y > 0 else "idle_up")
-
-
-
-
-	animations.play()
-
-	animations.play()
 func get_direction_to_mouse():
 	return (get_global_mouse_position() - global_position).normalized();
 	

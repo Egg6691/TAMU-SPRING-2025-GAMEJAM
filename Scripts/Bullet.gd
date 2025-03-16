@@ -12,6 +12,8 @@ var type = "straight";
 var target;
 var active = true;
 var min_speed;
+onready var sprite = get_node("Sprite")
+var sprite_path;
 # Called when the node enters the scene tree for the first time.
 func safe_normalize(vec: Vector2) -> Vector2:
 	if vec.length() > 0.0001:  # Avoid normalizing a zero-length vector
@@ -31,8 +33,9 @@ func _process(delta):
 # Main function to move the bullet (with boid behaviors)
 		if type == "homing":
 			# Homing behavior: Direction towards the player (existing code)
-			var angle = lerp_angle(direction.angle(), position.direction_to(Player.position).angle(), lerp(0, .5, 0.1))
+			var angle = lerp_angle(direction.angle(), position.direction_to(Player.position+Vector2(rand_range(-200,200), rand_range(-200,200))).angle(), lerp(0, .5, 0.1))
 			direction = Vector2(cos(angle), sin(angle))
+			rotation = angle - PI/2
 			speed = lerp(speed, min_speed, 0.02)
 
 			# Boid behaviors (Separation, Alignment, Cohesion)
@@ -95,6 +98,8 @@ func _ready():
 	min_speed = speed / 2.0;
 	add_to_group(team);
 	get_node("Timer").start();
+	if sprite_path != null:
+		sprite.texture = load(sprite_path);
 	
 
 

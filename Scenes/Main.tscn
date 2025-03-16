@@ -11,9 +11,11 @@ script = ExtResource( 2 )
 wait_time = 0.5
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 1.9342, -149.434 )
+scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
 
 [node name="Doll" parent="." instance=ExtResource( 1 )]
-position = Vector2( -53, -338 )
+position = Vector2( -466.222, -116.128 )
 
 [connection signal="timeout" from="PlayerTrackerTimer" to="." method="_append_position"]
