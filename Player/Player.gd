@@ -7,8 +7,9 @@ onready var bullet = {
 	"speed": 64 * 5,
 	"damage": 10,
 	"team": "player",
-	"type": "straight",
-	"target": Player.position
+	"type": "beam",
+	"target": Player.position,
+	"sprite": "res://Images/emmy_arm.png"
 }
 export var speed = 64*5
 #MOVEMENT VARIABLES
@@ -21,7 +22,7 @@ var dashing = false;
 #STORED NODES
 onready var dash_timer = get_node("DashDuration");
 onready var animations = get_node("Sprite/AnimationPlayer")
-onready var gun = get_node("Arm/Arm/Gun")
+onready var gun = get_node("Gun/Gun")
 
 func get_input():
 	_movement();
@@ -64,10 +65,14 @@ func _get_direction():
 	_update_animation(temp);
 	
 func _update_animation(movement: Vector2):
-	if abs(facing.x) > abs(facing.y):
-		animations.play("idle_right" if facing.x > 0 else "idle_left")
+	if velocity != Vector2.ZERO:
+		if abs(facing.x) > abs(facing.y):
+			animations.play("walk_right" if facing.x > 0 else "walk_left")
 	else:
-		animations.play("idle_down" if facing.y > 0 else "idle_up")
+		if abs(facing.x) > abs(facing.y):
+			animations.play("idle_right" if facing.x > 0 else "idle_left")
+		else:
+			animations.play("idle_down" if facing.y > 0 else "idle_up")
 func get_direction_to_mouse():
 	return (get_global_mouse_position() - global_position).normalized();
 	
