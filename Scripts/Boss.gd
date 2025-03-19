@@ -20,7 +20,8 @@ var animations: AnimationPlayer
 signal state_changed(new_state)
 
 func _ready():
-	set_state(BossState.IDLE)
+	pass
+	#set_state(BossState.ATTACKING)
 
 func _process(delta):
 	match state:
@@ -45,7 +46,6 @@ func decide():
 	if state != BossState.MOVING:
 		choices.append(BossState.MOVING);
 	var num = rand_range(0,choices.size())
-	print(get_enum_key(num))
 	set_state(choices[num]);
 	
 func handle_moving(delta):
@@ -64,7 +64,7 @@ func handle_dead(delta):
 	queue_free() 
 
 func perform_attack():
-	2.0;
+	pass
 	
 func set_state(new_state):
 	if state != new_state:

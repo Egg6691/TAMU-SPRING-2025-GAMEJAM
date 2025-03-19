@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Scenes/Bosses/Doll.gd" type="Script" id=1]
-[ext_resource path="res://Images/game_doll_boss.png" type="Texture" id=2]
+[ext_resource path="res://Bosses/Doll.gd" type="Script" id=1]
+[ext_resource path="res://Images/doll_pixel.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=5]
 
@@ -60,8 +60,9 @@ shape = SubResource( 5 )
 disabled = true
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.05, 0.05 )
+z_index = 1
 texture = ExtResource( 2 )
+hframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/IDLE = SubResource( 8 )
@@ -71,5 +72,8 @@ anims/RESET = SubResource( 7 )
 [node name="ChainPullDuration" type="Timer" parent="."]
 wait_time = 8.0
 one_shot = true
+
+[node name="BulletPosition" type="Position2D" parent="."]
+position = Vector2( 50, 0 )
 
 [connection signal="timeout" from="ChainPullDuration" to="." method="_on_ChainPullDuration_timeout"]

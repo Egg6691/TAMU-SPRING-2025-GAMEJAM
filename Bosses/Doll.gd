@@ -33,6 +33,7 @@ onready var bullet = {
 	"target": Player.position,
 	"sprite": "res://Images/bullet_orange_small.png"
 }
+onready var bp = get_node("BulletPosition")
 func _ready():
 	speed = 200;
 	animations = get_node("Sprite/AnimationPlayer")
@@ -42,7 +43,7 @@ func _ready():
 func handle_moving(delta):
 	var angle = lerp_angle(direction.angle(), position.direction_to(Player.position).angle(), .02)
 	direction = Vector2(cos(angle), sin(angle))
-	position+=direction.normalized()*speed*delta;
+	#position+=direction.normalized()*speed*delta;
 	if time_in_state > 3.0:
 		set_state(BossState.ATTACKING);
 	
@@ -55,7 +56,8 @@ func perform_attack():
 		possible_attacks.append(attacks.CHAIN);
 	#else:
 		#possible_attacks.append(attacks.CHOMP);
-	var rand = possible_attacks[rand_range(0,possible_attacks.size())];
+	var rand = 1 #possible_attacks[rand_range(0,possible_attacks.size())]; TODO
+	
 	match rand:
 		attacks.BULLET1:
 			_attack_bullet(1)
@@ -69,10 +71,15 @@ func perform_attack():
 func _attack_bullet(num):
 	match num:
 		1:
-			BulletManager._create_ring(position, fasthomer, 8, 0)
+			for i in range(8):
+				bp.position = position+100*Vector2(cos(deg2rad((i * 360.0) / 8.0)), sin(deg2rad((i*360.0)/8.0)))
+				fasthomer["direction"] = Vector2.RIGHT.rotated(i*PI/4.0)
+				BulletManager._create_bullet(bp.position, fasthomer);
+				yield(get_tree().create_timer(0.3), "timeout")
 		2:
+			var offset = rand_range(0,360)
 			for i in range(16):
-				BulletManager._create_ring(position, bullet, 16, i * 75)
+				BulletManager._create_ring(position, bullet, 16, i * 75+offset)
 				yield(get_tree().create_timer(0.3), "timeout")
 		3:
 			for i in range(100):

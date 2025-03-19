@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bullet_red_arrow.png-5f6111fc9d06896f87e50b3d3bdfd707.stex"
+path="res://.import/doll_pixel.png-ab6c713ac7312883bf097f2ed4982385.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/bullet_red_arrow.png"
-dest_files=[ "res://.import/bullet_red_arrow.png-5f6111fc9d06896f87e50b3d3bdfd707.stex" ]
+source_file="res://Images/doll_pixel.png"
+dest_files=[ "res://.import/doll_pixel.png-ab6c713ac7312883bf097f2ed4982385.stex" ]
 
 [params]
 

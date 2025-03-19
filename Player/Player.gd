@@ -9,9 +9,9 @@ onready var bullet = {
 	"team": "player",
 	"type": "beam",
 	"target": Player.position,
-	"sprite": "res://Images/emmy_arm.png"
+	"sprite": "res://Images/bullet_orange_small.png"
 }
-export var speed = 64*5
+export var speed = 64*6
 #MOVEMENT VARIABLES
 var velocity = Vector2.ZERO
 var direction = Vector2.ZERO
@@ -22,7 +22,7 @@ var dashing = false;
 #STORED NODES
 onready var dash_timer = get_node("DashDuration");
 onready var animations = get_node("Sprite/AnimationPlayer")
-onready var gun = get_node("Gun/Gun")
+onready var gun = get_node("Gun/Tip")
 
 func get_input():
 	_movement();
@@ -31,7 +31,7 @@ func get_input():
 
 func _movement():
 	if dashing:
-		velocity = facing * speed * 1.5;
+		velocity = facing * speed * 2.5;
 	elif Input.is_action_just_pressed('dash'):
 		dashing = true;
 		dash_timer.start();

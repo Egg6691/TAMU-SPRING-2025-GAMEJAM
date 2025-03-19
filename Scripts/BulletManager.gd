@@ -15,8 +15,8 @@ func _create_bullet(position, properties: Dictionary):
 	new_bullet.type = properties.get("type", "standard")
 	new_bullet.target = properties.get("target", null)
 	new_bullet.sprite_path = properties.get("sprite", "res://icon.png")
-	get_tree().current_scene.add_child(new_bullet)
-	
+	get_tree().current_scene.call_deferred("add_child", new_bullet) # TODO: not sure if this is needed in final.
+
 	new_bullet.look_at(position + new_bullet.direction)
 	reuse_bullets.append(new_bullet);
 	if new_bullet.team == "player":

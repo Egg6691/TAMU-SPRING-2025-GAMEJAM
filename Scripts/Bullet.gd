@@ -10,10 +10,15 @@ var team = "none";
 var damage = 1;
 var type = "straight";
 var target;
-var active = true;
+var active = false;
 var min_speed;
-onready var sprite = get_node("Sprite")
 var sprite_path;
+var indicator_delay = .5;
+
+onready var sprite = get_node("Sprite")
+onready var indicator = get_node("Indicator")
+onready var timer = get_node("Timer")
+
 # Called when the node enters the scene tree for the first time.
 func safe_normalize(vec: Vector2) -> Vector2:
 	if vec.length() > 0.0001:  # Avoid normalizing a zero-length vector
@@ -32,15 +37,12 @@ func _process(delta):
 		match type:
 			"straight":
 				position += direction*speed*delta;
-# Main function to move the bullet (with boid behaviors)
 			"homing":
-				# Homing behavior: Direction towards the player (existing code)
 				var angle = lerp_angle(direction.angle(), position.direction_to(Player.position+Vector2(rand_range(-200,200), rand_range(-200,200))).angle(), lerp(0, .5, 0.1))
 				direction = Vector2(cos(angle), sin(angle))
 				rotation = angle - PI/2
 				speed = lerp(speed, min_speed, 0.02)
 
-				# Boid behaviors (Separation, Alignment, Cohesion)
 				var separation_strength = .075 # How strongly the bullet avoids other entities
 				var alignment_strength = 0.1  # How much the bullet aligns with others
 				var cohesion_strength = 0.02  # How much the bullet tries to group with others
@@ -54,13 +56,8 @@ func _process(delta):
 				for boid in nearby_boids:
 					var distance = position.distance_to(boid.position)
 					count += 1
-						
-						# Separation: Avoid close proximity to other boids (collisions)
 					separation_force += (position - boid.position).normalized() / max(distance, 0.0001);
-					# Alignment: Align with nearby boid's direction
 					alignment_force += boid.direction
-					
-					# Cohesion: Move towards the average position of nearby boids
 					cohesion_force += boid.position
 				# Apply forces only if there are nearby boids
 				if count > 0:
@@ -76,21 +73,34 @@ func _process(delta):
 				#move_and_slide(direction * speed)
 			"swing":
 				pass
-
+			"beam":
+				active = false;
+				sprite.offset.x = sprite.texture.get_width()/2
+				sprite.position.x += speed*15
+				sprite.scale.x = speed*30
+				sprite.scale.y = 15;
+				
+func _create_indicator():
+	sprite.visible = false;
+	indicator.scale.x = speed*30
+	yield(get_tree().create_timer(indicator_delay), "timeout")
+	sprite.visible = true;
+	active = true;
+	indicator.visible = false;
+	timer.start();
 
 func _ready():
 	add_to_group("bullet")
 	if min_speed == null:
 		min_speed = speed / 2.0;
 	add_to_group(team);
-	get_node("Timer").start();
+	timer.start();
 	if sprite_path != null:
 		sprite.texture = load(sprite_path);
-	sprite.rotation += 180
-	if type == "beam":
-		pass
-		#position += 23*speed*direction;
-		#scale = speed*direction.normalized()
+	if indicator: # TODO: ADD BOOLEAN
+		_create_indicator()
+	else:
+		timer.start();
 
 
 func _on_Timer_timeout():

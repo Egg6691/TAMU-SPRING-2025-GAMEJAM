@@ -16,4 +16,3 @@ func _track_position():
 
 func _append_position():
 	player_pos.append(Player.position);
-	print(player_pos)
