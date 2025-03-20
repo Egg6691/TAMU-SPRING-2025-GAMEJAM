@@ -16,6 +16,6 @@ z_index = -1
 texture = ExtResource( 3 )
 
 [node name="Doll" parent="." instance=ExtResource( 1 )]
-position = Vector2( -465.868, -120.724 )
+position = Vector2( -393.167, -59.6164 )
 
 [connection signal="timeout" from="PlayerTrackerTimer" to="." method="_append_position"]

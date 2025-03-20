@@ -22,6 +22,7 @@ var dashing = false;
 #STORED NODES
 onready var dash_timer = get_node("DashDuration");
 onready var animations = get_node("Sprite/AnimationPlayer")
+onready var animations2 = get_node("Sprite/AnimationPlayer2")
 onready var gun = get_node("Gun/Tip")
 
 func get_input():
@@ -35,7 +36,7 @@ func _movement():
 	elif Input.is_action_just_pressed('dash'):
 		dashing = true;
 		dash_timer.start();
-		animations.play("dash")
+		animations2.play("dash")
 	else:
 		_get_direction()
 		velocity = direction.normalized() * speed;
@@ -66,7 +67,7 @@ func _get_direction():
 	
 func _update_animation(movement: Vector2):
 	if velocity != Vector2.ZERO:
-		if abs(facing.x) > abs(facing.y):
+		if abs(facing.x) >= abs(facing.y):
 			animations.play("walk_right" if facing.x > 0 else "walk_left")
 	else:
 		if abs(facing.x) > abs(facing.y):
