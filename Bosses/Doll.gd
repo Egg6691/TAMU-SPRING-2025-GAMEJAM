@@ -51,7 +51,6 @@ func perform_attack():
 	#else:
 		#possible_attacks.append(attacks.CHOMP);
 	var rand = 0 #possible_attacks[rand_range(0,possible_attacks.size())]; TODO
-	
 	match rand:
 		attacks.BULLET1:
 			_attack_bullet(1)
@@ -62,6 +61,7 @@ func perform_attack():
 		attacks.CHAIN:
 			_attack_chain()
 	return 3.0;
+	
 func _attack_bullet(num):
 	match num:
 		1:

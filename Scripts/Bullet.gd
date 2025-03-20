@@ -42,7 +42,6 @@ func _process(delta):
 				direction = Vector2(cos(angle), sin(angle))
 				rotation = angle - PI/2
 				speed = lerp(speed, min_speed, 0.02)
-
 				var separation_strength = .075 # How strongly the bullet avoids other entities
 				var alignment_strength = 0.1  # How much the bullet aligns with others
 				var cohesion_strength = 0.02  # How much the bullet tries to group with others

@@ -89,7 +89,7 @@ func handle_attacking():
 	set_state(BossState.IDLE)
 
 func handle_taking_damage(delta):
-	pass;
+	pass; # TODO
 
 func handle_dead(delta):
 	queue_free() 
