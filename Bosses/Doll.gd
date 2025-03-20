@@ -22,7 +22,8 @@ onready var fasthomer = {
 	"team": "enemy",
 	"type": "homing",
 	"target": Player.position,
-	"sprite": "res://Images/bullet_red_arrow.png"
+	"sprite": "res://Images/bullet_red_arrow.png",
+	"scale": .5
 }
 onready var bullet = {
 	"direction": Vector2.ZERO,

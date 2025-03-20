@@ -96,10 +96,11 @@ func _ready():
 	timer.start();
 	if sprite_path != null:
 		sprite.texture = load(sprite_path);
-	if indicator: # TODO: ADD BOOLEAN
+	if indicator_delay > 0: # TODO: ADD BOOLEAN
 		_create_indicator()
 	else:
 		timer.start();
+		active = true
 
 
 func _on_Timer_timeout():

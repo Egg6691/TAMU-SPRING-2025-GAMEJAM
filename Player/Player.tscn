@@ -349,7 +349,6 @@ shape = SubResource( 3 )
 wait_time = 0.3
 
 [node name="Camera2D" type="Camera2D" parent="."]
-current = true
 zoom = Vector2( 0.6, 0.6 )
 
 [connection signal="timeout" from="DashDuration" to="." method="_on_DashDuration_timeout"]

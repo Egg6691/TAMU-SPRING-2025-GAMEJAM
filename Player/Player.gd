@@ -4,10 +4,10 @@ extends Character
 #EXPORT VARIABLES 
 onready var bullet = {
 	"direction": get_direction_to_mouse(),
-	"speed": 64 * 5,
+	"speed": 64 * 8,
 	"damage": 10,
 	"team": "player",
-	"type": "beam",
+	"type": "straight",
 	"target": Player.position,
 	"sprite": "res://Images/bullet_orange_small.png"
 }
@@ -32,7 +32,7 @@ func get_input():
 
 func _movement():
 	if dashing:
-		velocity = facing * speed * 2.5;
+		velocity = facing * speed * 1.75;
 	elif Input.is_action_just_pressed('dash'):
 		dashing = true;
 		dash_timer.start();

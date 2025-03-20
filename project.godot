@@ -35,6 +35,11 @@ config/icon="res://icon.png"
 BulletManager="*res://Scripts/BulletManager.gd"
 Player="*res://Player/Player.tscn"
 
+[display]
+
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
 [input]
 
 right={
