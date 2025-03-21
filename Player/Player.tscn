@@ -351,4 +351,8 @@ wait_time = 0.3
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2( 0.6, 0.6 )
 
+[node name="FireRate" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
 [connection signal="timeout" from="DashDuration" to="." method="_on_DashDuration_timeout"]

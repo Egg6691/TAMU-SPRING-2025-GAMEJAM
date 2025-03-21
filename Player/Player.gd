@@ -22,8 +22,9 @@ var dashing = false;
 #STORED NODES
 onready var dash_timer = get_node("DashDuration");
 onready var animations = get_node("Sprite/AnimationPlayer")
-onready var animations2 = get_node("Sprite/AnimationPlayer2")
-onready var gun = get_node("Gun/Tip")
+onready var animations2 = get_node("Sprite/AnimationPlayer2") #ONLY USED FOR DASH FLICKERING RIGHT NOW
+onready var fire_rate = get_node("FireRate")
+onready var gun = get_node("Gun")
 
 func get_input():
 	_movement();
@@ -42,8 +43,14 @@ func _movement():
 		velocity = direction.normalized() * speed;
 		
 func _shoot():
-	bullet["direction"] = get_direction_to_mouse();
-	BulletManager._create_bullet(gun.global_position, bullet);
+	if fire_rate.is_stopped():
+		bullet["direction"] = Vector2(cos(gun.rotation),sin(gun.rotation)).normalized()
+		BulletManager._create_bullet(gun.get_child(0).global_position, bullet); # TODO: TEMP SOLUTION FOR GUN TIP POSITION
+		fire_rate.start()
+		gun.recoil(160)
+		AudioManager._play_sound("shoot");
+		AudioManager._play_sound("reload");
+	
 	
 func _physics_process(delta):
 	get_input()

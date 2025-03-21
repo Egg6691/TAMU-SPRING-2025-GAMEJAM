@@ -34,6 +34,7 @@ config/icon="res://icon.png"
 
 BulletManager="*res://Scripts/BulletManager.gd"
 Player="*res://Player/Player.tscn"
+AudioManager="*res://Sounds/AudioManager.tscn"
 
 [display]
 
