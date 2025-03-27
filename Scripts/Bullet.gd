@@ -14,7 +14,7 @@ var active = false;
 var min_speed;
 var sprite_path;
 var indicator_delay = .5;
-
+var lifetime = 3;
 onready var sprite = get_node("Sprite")
 onready var indicator = get_node("Indicator")
 onready var timer = get_node("Timer")
@@ -67,11 +67,10 @@ func _process(delta):
 					direction += separation_force + alignment_force + cohesion_force
 				direction = safe_normalize(direction)
 
-				# Move the bullet using move_and_slide
 				position += direction.normalized()*speed*delta
 				#move_and_slide(direction * speed)
 			"swing":
-				pass
+				position += direction*speed*delta;
 			"beam":
 				active = false;
 				sprite.offset.x = sprite.texture.get_width()/2
@@ -93,6 +92,7 @@ func _ready():
 	if min_speed == null:
 		min_speed = speed / 2.0;
 	add_to_group(team);
+	timer.wait_time = lifetime;
 	timer.start();
 	if sprite_path != null:
 		sprite.texture = load(sprite_path);

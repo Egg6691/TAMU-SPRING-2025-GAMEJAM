@@ -34,7 +34,7 @@ func get_input():
 func _movement():
 	if dashing:
 		velocity = facing * speed * 1.75;
-	elif Input.is_action_just_pressed('dash'):
+	elif Input.is_action_just_pressed('dash') and velocity != Vector2.ZERO:
 		dashing = true;
 		dash_timer.start();
 		animations2.play("dash")

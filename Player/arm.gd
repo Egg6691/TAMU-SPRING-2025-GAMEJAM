@@ -3,7 +3,7 @@ extends Sprite
 onready var tip = get_node("Tip")
 var angular_velocity = 0.0
 var damping = 9.0         # Higher values will damp faster.
-var spring_strength = 50.0  # Adjust how strongly the gun rotates toward the mouse.
+var spring_strength = 80.0  # Adjust how strongly the gun rotates toward the mouse.
 
 func _process(delta):
 	var mouse_position = get_global_mouse_position()
@@ -24,4 +24,8 @@ func recoil(deg):
 	angular_velocity += deg2rad(deg)*sign(scale.y)
 
 func shortest_angle_diff(from_angle, to_angle):
-	return fmod(to_angle - from_angle + PI, TAU) - PI
+	var diff = fmod(to_angle - from_angle + PI, TAU)
+	if diff < 0:
+		diff += TAU
+	return diff - PI
+

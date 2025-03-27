@@ -4,7 +4,7 @@ extends Camera2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-onready var boss = get_parent().get_node("Doll")
+onready var boss = get_parent().get_node("Sword")
 # Called when the node enters the scene tree for the first time.
 
 

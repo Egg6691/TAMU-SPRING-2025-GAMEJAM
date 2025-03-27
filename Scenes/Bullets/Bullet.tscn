@@ -28,7 +28,7 @@ color = Color( 0.647059, 0.0392157, 0.0392157, 1 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 2, 2 )
+scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 7, 7 )
 

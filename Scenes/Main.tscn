@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Bosses/Doll.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Bosses/Sword.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=2]
 [ext_resource path="res://Images/584001cf35ec13e (1).png" type="Texture" id=3]
 [ext_resource path="res://Scripts/BossPlayerCamera.gd" type="Script" id=4]
@@ -16,12 +16,11 @@ position = Vector2( -368.994, -259.277 )
 z_index = -1
 texture = ExtResource( 3 )
 
-[node name="Doll" parent="." instance=ExtResource( 1 )]
-position = Vector2( -393.167, -59.6164 )
-
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 0.6, 0.6 )
 script = ExtResource( 4 )
+
+[node name="Sword" parent="." instance=ExtResource( 1 )]
 
 [connection signal="timeout" from="PlayerTrackerTimer" to="." method="_append_position"]

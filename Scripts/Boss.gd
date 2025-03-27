@@ -15,7 +15,7 @@ var attack_cooldown = 3.0
 var is_attacking = false
 var is_taking_damage = false
 var velocity = Vector2.ZERO
-var speed = 1;
+var speed = 100;
 var time_in_state = 0;
 var animations: AnimationPlayer
 var idle_time = 8.0
@@ -45,13 +45,15 @@ func decide():
 	var choices = []
 	if state != BossState.ATTACKING:
 		choices.append(BossState.ATTACKING);
-	if state != BossState.MOVING:
-		choices.append(BossState.MOVING);
+	#if state != BossState.MOVING:
+	#	choices.append(BossState.MOVING);
 	var num = rand_range(0,choices.size())
 	set_state(choices[num]);
+	print(num)
 	
 func handle_moving(delta):
-	velocity = move_and_slide(position.direction_to(Player.position)*speed*delta);
+	print(delta)
+	velocity = move_and_slide(position.direction_to(Player.position)*speed);
 	if abs(velocity.x) >= abs(velocity.y):
 		facing = Vector2.RIGHT if velocity.x > 0 else Vector2.LEFT
 	else:
@@ -61,6 +63,7 @@ func handle_moving(delta):
 		set_state(BossState.ATTACKING);
 		
 func handle_animations():
+	pass
 	"""
 	if velocity.length() > 0:
 		match facing:
@@ -72,7 +75,7 @@ func handle_animations():
 				animations.play("walk_up")
 			Vector2.DOWN:
 				animations.play("walk_down")
-	else:"""
+	else:
 	match facing:
 		Vector2.RIGHT:
 			animations.play("idle_right")
@@ -82,9 +85,10 @@ func handle_animations():
 			animations.play("idle_up")
 		Vector2.DOWN:
 			animations.play("idle_down")
-
+	"""
 
 func handle_attacking():
+	print("test")
 	yield(get_tree().create_timer(perform_attack()), "timeout");
 	set_state(BossState.IDLE)
 
