@@ -35,6 +35,7 @@ func _process(delta):
 			handle_taking_damage(delta)
 		BossState.DEAD:
 			handle_dead(delta)
+	handle_animations()
 	time_in_state += delta;
 
 func handle_idle(delta):
@@ -76,6 +77,7 @@ func handle_animations():
 			Vector2.DOWN:
 				animations.play("walk_down")
 	else:
+"""
 	match facing:
 		Vector2.RIGHT:
 			animations.play("idle_right")
@@ -85,7 +87,6 @@ func handle_animations():
 			animations.play("idle_up")
 		Vector2.DOWN:
 			animations.play("idle_down")
-	"""
 
 func handle_attacking():
 	print("test")

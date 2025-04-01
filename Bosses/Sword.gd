@@ -39,6 +39,7 @@ func _process(delta):
 		velocity = lerp(velocity, target_direction * speed * 16, turn_speed * delta)
 		move_and_slide(velocity)
 		rotation +=1;
+		
 func perform_attack():
 	swinging = false;
 	var possible_attacks = []

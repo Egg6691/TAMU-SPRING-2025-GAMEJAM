@@ -61,6 +61,8 @@ func perform_attack():
 			_attack_bullet(3)
 		attacks.CHAIN:
 			_attack_chain()
+		attacks.CHOMP:
+			_chomp();
 	return 3.0;
 	
 func _attack_bullet(num):
@@ -81,8 +83,9 @@ func _attack_bullet(num):
 				BulletManager._create_ring(position, bullet, 1, randi() % 360)
 				yield(get_tree().create_timer(0.01), "timeout")
 
-				
-
+func _chomp():
+	pass
+	
 func _attack_chain():
 	pulling = true;
 	pulltimer.start()
