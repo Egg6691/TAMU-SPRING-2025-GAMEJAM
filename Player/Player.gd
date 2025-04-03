@@ -19,6 +19,7 @@ var e_velocity = Vector2.ZERO
 #STATES
 var facing = Vector2.RIGHT;
 var dashing = false;
+var canShoot = true;
 #STORED NODES
 onready var dash_timer = get_node("DashDuration");
 onready var animations = get_node("Sprite/AnimationPlayer")
@@ -28,7 +29,7 @@ onready var gun = get_node("Gun")
 
 func get_input():
 	_movement();
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_just_pressed("shoot") and canShoot:
 		_shoot();
 
 func _movement():

@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Scripts/TitleScreen.gd" type="Script" id=1]
+[ext_resource path="res://Images/SETTINGS.png" type="Texture" id=2]
+[ext_resource path="res://Images/SCREEN.png" type="Texture" id=3]
+[ext_resource path="res://Images/START_pressed.png" type="Texture" id=4]
+[ext_resource path="res://Images/QUIT.png" type="Texture" id=5]
+[ext_resource path="res://Images/QUIT_pressed.png" type="Texture" id=6]
+[ext_resource path="res://Images/TITLE.png" type="Texture" id=7]
+[ext_resource path="res://Images/SETTINGS_pressed.png" type="Texture" id=8]
+[ext_resource path="res://Images/START.png" type="Texture" id=9]
+
+[node name="TitleScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 530, 113 )
+script = ExtResource( 1 )
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+expand = true
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 208.0
+margin_top = 98.0
+margin_right = -178.0
+margin_bottom = -306.0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 1
+
+[node name="Start" type="TextureButton" parent="TextureRect2"]
+margin_left = 392.0
+margin_top = 356.0
+margin_right = 749.0
+margin_bottom = 447.0
+rect_scale = Vector2( 0.7, 0.7 )
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 4 )
+stretch_mode = 3
+
+[node name="Quit" type="TextureButton" parent="TextureRect2"]
+margin_left = 430.0
+margin_top = 487.0
+margin_right = 673.0
+margin_bottom = 623.0
+rect_scale = Vector2( 0.65, 0.65 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 6 )
+texture_hover = ExtResource( 6 )
+stretch_mode = 3
+
+[node name="Settings" type="TextureButton" parent="TextureRect2"]
+margin_left = 363.0
+margin_top = 417.0
+margin_right = 803.0
+margin_bottom = 531.0
+rect_scale = Vector2( 0.7, 0.7 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 8 )
+stretch_mode = 3
+
+[connection signal="pressed" from="TextureRect2/Start" to="." method="_on_Start_pressed"]
+[connection signal="pressed" from="TextureRect2/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="TextureRect2/Settings" to="." method="_on_Settings_pressed"]
